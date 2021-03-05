@@ -1,0 +1,62 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dfs-oo
+    output-exception: ${OUTPUT_EXCEPTION:true}
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 512MB
+      max-request-size: 512MB
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialization.write_dates_as_timestamps: true
+    time-zone: GMT+8
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DATABASE_HOST:192.168.125.127}:${DATABASE_PORT:3306}/${DATABASE_NAME:default_db}?autoReconnect=true&useUnicode=true&createDatabaseIfNotExist=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+    hikari:
+      maximum-pool-size: 100
+      minimum-idle: 10
+      idle-timeout: 600000
+      connection-timeout: 5000
+      connection-test-query: SELECT 1
+      max-lifetime: 18000000
+
+logging:
+  level:
+    io.swagger.models.parameters.AbstractSerializableParameter: error
+
+mybatis-plus:
+  mapper-locations: classpath*:/mappers/**Mapper.xml
+  typeAliasesPackage: com.rn.dfsoo.*.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+swagger:
+  enable: ${SWAGGER_ENABLE:true}
+  base-package: com.rn.dfsoo
+  title: 文件存储服务接口
+  description: 可灵活切换底层存储的文件存储服务
+  version: 1.0.0
+  contact:
+    name: xxx
+    url: xxx.rn.com
+    email: rannuo1010@gmail.com
+
+dfs:
+  dfs-type: ${DFS_TYPE:LocalDFS} # LocalDFS、FastDFS
+#  group-name: group1
+#  enable-encrypt: ${DFS_ENABLE_ENCRYPT:true}
+#  fastdfs:
+#    tracker-servers: ${DFS_FASTDFS_TRACKER:192.168.125.15:22122}

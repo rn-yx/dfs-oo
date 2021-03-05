@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rn.dfsoo.web.mapper.FileMetaMapper">
+    <update id="updateFilePathById">
+        update common_file_meta set path=#{filePath} where id=#{fileId}
+    </update>
+
+    <select id="selectFileMetaById" resultType="com.rn.dfsoo.web.model.vo.FileMetaVO">
+        SELECT <include refid="Base_Column_List" />
+        FROM common_file_meta WHERE id=#{id}
+    </select>
+    <select id="selectFileMetaPage" resultType="com.rn.dfsoo.web.model.vo.FileMetaVO">
+        SELECT <include refid="Base_Column_List" />
+        FROM common_file_meta
+    </select>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, creator_id, biz_code, file_name, file_type, file_desc, file_status, suffix, size, path, md_hash, sha_hash, storage_type, is_encrypt, abe_secret_key, is_temp, is_deleted, update_time, create_time
+    </sql>
+
+</mapper>
